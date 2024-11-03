@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+}
+
+
+.modalWrapper {
+    position: absolute;
+    background: rgba(32, 32, 32, .4);
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    place-items: center;
+}
+
+
+.modal {
+    width: 250px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    background-color: white;
+}
+
+.showModal {
+    display: grid;
+}
+
+.content {
+    text-align: center;
+}
+
+.listsWrapper {
+    display: flex;
+    gap: 16px;
+}
+
+.listContainer {
+    display: flex; 
+    flex-direction: column;
+    flex: 1;
+}
+
+.listToDo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.listItem {
+    display: flex;
+    padding: 0 16px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+
+.listItemActions {
+    display: flex;
+    gap: 8px;
+}
+
+.doneToDoTitle {
+    text-decoration: line-through;
+}
+
+.listItemIcon {
+    width: 24px;
+    cursor: pointer;
+}
+
+.closing{
+    display: flex;
+    padding-left: 250px;
+}

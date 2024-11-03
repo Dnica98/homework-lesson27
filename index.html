@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="openModal">Create toDo</button>
+
+    <div class="modalWrapper" id="modal">
+        
+        <div class="modal">
+            <div class="closing" ><img src="/assets/icon-close.png" alt="closing-icon" ></div>
+            <p>Add to do</p>
+            <input type="text" id="addToDoInput">
+            
+            <button id="addToDoBtn" onclick="addToDo()">Add todo</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Todo list:</h2>
+        <div class="listsWrapper">
+            <div class="listContainer">
+                <h3>Done:</h3>
+                <div id="doneToDoList" class="listToDo"></div>
+            </div>
+            <div  class="listContainer">
+                <h3>In progress:</h3>
+                <div id="inProgressToDoList" class="listToDo"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>    
+</body>
+</html>
