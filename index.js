@@ -4,7 +4,7 @@ const doneToDoList = document.getElementById('doneToDoList')
 const inProgressToDoList = document.getElementById('inProgressToDoList')
 const openModal = document.getElementById('openModal')
 const modal = document.getElementById('modal')
-
+const closingModal = document.getElementById('closingModal')
 
 let list = []
 
@@ -83,6 +83,12 @@ openModal.addEventListener('click', () => {
     modal.classList.add('showModal')
 })
 
+
+renderPage()
+
+closingModal.addEventListener('click', () =>{
+    modal.classList.remove('showModal')
+})
 
 renderPage()
 
