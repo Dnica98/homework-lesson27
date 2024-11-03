@@ -99,7 +99,7 @@ renderPage()
 
 
 //1. crearea ToDo direct din pagina nu din modal
-//2. Adaugam close Icon la modal
+
 //3. edit on click deschide modalul cu valoarea la titlu in input (folositi filter)
 //4. delete action
 //5. salvati progresul in localStorage
