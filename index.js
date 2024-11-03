@@ -65,6 +65,11 @@ function renderPage() {
             e.stopPropagation()
             testFunc()
         }) 
+
+        deleteIcon.addEventListener('click', (d) =>{
+            d.stopPropagation()
+            testFunc()
+        })
     })
 
 }
@@ -91,11 +96,6 @@ closingModal.addEventListener('click', () =>{
 })
 
 renderPage()
-
-// const str = ' str   ewe sdasdas '
-
-// console.log(str.trim())
-
 
 
 //1. crearea ToDo direct din pagina nu din modal

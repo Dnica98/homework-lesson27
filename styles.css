@@ -77,3 +77,9 @@ body {
     display: flex;
     padding-left: 250px;
 }
+
+.openModal{
+    padding-top: 20px;
+    display: flex;
+   justify-content: center;
+}
