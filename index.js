@@ -6,22 +6,33 @@ const openModal = document.getElementById('openModal')
 const modal = document.getElementById('modal')
 const closingModal = document.getElementById('closingModal')
 
-let list = []
+let list = JSON.parse(localStorage.getItem('todoList')) || []
+let editModeIcon = null
+
+function saveList () {
+    localStorage.setItem('todoList', JSON.stringify(list))
+}
 
 const toggleToDo = (title) => {
-    console.log('pass2')
-    const updatedList = list.map((toDo) => {
-        return { ...toDo, done: title === toDo.title ? !toDo.done : toDo.done }
-    }) 
+    list = list.map((toDo) =>
+    toDo.title === title ? {...toDo, done: !toDo.done} : toDo)
 
-    list = updatedList
+    saveList()
     renderPage()
 }
 
-const testFunc = () => {
-    console.log('pass')
+const editToDo = (title) =>{
+    editModeIcon = title
+    const item = list.filter((toDo)=> toDo.title === title)[0]
+    addToDoInput.value = listItem.title
+    modal.classList.add('showModal')
 }
 
+const deleteToDo = (title) =>{
+    list = list.filter((toDo)=>toDo.title !== title)
+    saveList()
+    renderPage()
+}
 
 function renderPage() {
     doneToDoList.innerHTML = ''
@@ -30,8 +41,10 @@ function renderPage() {
     list.forEach((toDo) => {
         const listItem = document.createElement('div')
         listItem.classList.add('listItem')
+       
         const actions = document.createElement('div')
         actions.classList.add('listItemActions')
+        
         const editIcon = document.createElement('img')
         editIcon.classList.add('listItemIcon')
         editIcon.alt = 'edit-icon'
@@ -63,33 +76,43 @@ function renderPage() {
 
         editIcon.addEventListener('click', (e) => {
             e.stopPropagation()
-            testFunc()
+            editToDo(toDo.title)
         }) 
 
-        deleteIcon.addEventListener('click', (d) =>{
-            d.stopPropagation()
-            testFunc()
+        deleteIcon.addEventListener('click', (e) =>{
+            e.stopPropagation()
+            deleteToDo(toDo.title)
         })
     })
 
 }
 
 const addToDo = () => {
-    const title = addToDoInput.value
+    const title = addToDoInput.value.trim()
     if (title === undefined || title === '') return alert("Todo should have a title")
-    if (list.some(item => item.title === title)) return alert('Todo title should be uniq')
-    list.push({ title, done: false })
+    
+    if (editModeIcon){
+        list = list.map((toDo)=>
+        toDo.title === editModeIcon ? {...toDo, title} : toDo)
+        editModeIcon = null
+    } else {
+        if(list.some((listItem)=> listItem.title === title))
+            return alert('To do title should be uniq')
+        list.push({...title, done: false})
+    }
+    
     addToDoInput.value = ''
     modal.classList.remove('showModal')
+    saveList()
     renderPage()
 }
 
+addToDoBtn.addEventListener('click', addToDo)
+
 openModal.addEventListener('click', () => {
+    addToDoInput.value = ''
     modal.classList.add('showModal')
 })
-
-
-renderPage()
 
 closingModal.addEventListener('click', () =>{
     modal.classList.remove('showModal')
@@ -102,9 +125,3 @@ renderPage()
 
 
 
-//3. edit on click deschide modalul cu valoarea la titlu in input (folositi filter)
-//4. delete action
-//5. salvati progresul in localStorage
-
-
-// sortare
