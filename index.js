@@ -23,7 +23,7 @@ const toggleToDo = (title) => {
 
 const editToDo = (title) =>{
     editModeIcon = title
-    const item = list.filter((toDo)=> toDo.title === title)[0]
+    const listItem = list.filter((toDo)=> toDo.title === title)[0]
     addToDoInput.value = listItem.title
     modal.classList.add('showModal')
 }
