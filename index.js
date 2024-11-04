@@ -7,7 +7,7 @@ const modal = document.getElementById('modal')
 const closingModal = document.getElementById('closingModal')
 
 let list = JSON.parse(localStorage.getItem('todoList')) || []
-let editModeIcon = null
+let editModeIcon = ''
 
 function saveList () {
     localStorage.setItem('todoList', JSON.stringify(list))
