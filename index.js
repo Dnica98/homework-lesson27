@@ -2,35 +2,59 @@ const addToDoInput = document.getElementById('addToDoInput')
 const addToDoBtn = document.getElementById('addToDoBtn')
 const doneToDoList = document.getElementById('doneToDoList')
 const inProgressToDoList = document.getElementById('inProgressToDoList')
-const openModal = document.getElementById('openModal')
 const modal = document.getElementById('modal')
+const editToDoInput = document.getElementById('editToDoInput')
+const editToDoBtn = document.getElementById('editToDoBtn')
 const closingModal = document.getElementById('closingModal')
 
-let list = JSON.parse(localStorage.getItem('todoList')) || []
-let editModeIcon = null
+const savedList = JSON.parse(localStorage.getItem('todoList'))
 
-function saveList () {
-    localStorage.setItem('todoList', JSON.stringify(list))
+let list = savedList ? savedList : []
+let toDoforEditing = ''
+
+const closeModal = () => {
+    modal.classList.remove('showModal')
+}
+
+const saveList = (updatedList) => {
+    localStorage.setItem('toDoList', JSON.stringify(updatedList))
 }
 
 const toggleToDo = (title) => {
-    list = list.map((toDo) =>
-    toDo.title === title ? {...toDo, done: !toDo.done} : toDo)
+    const updatedList = list.map((toDo) =>{
+     return {...toDo, done: title === toDo.title ? !toDo.done : toDo.done}})
 
-    saveList()
+    list = updatedList
+    saveList(updatedList)
     renderPage()
 }
 
-const editToDo = (title) =>{
-    editModeIcon = title
-    const item = list.filter((toDo)=> toDo.title === title)[0]
-    addToDoInput.value = listItem.title
+const openModal= (toDo) =>{
     modal.classList.add('showModal')
+    addToDoInput.value = toDo
+    editModeIcon = toDo
 }
 
-const deleteToDo = (title) =>{
-    list = list.filter((toDo)=>toDo.title !== title)
-    saveList()
+const editToDo = () =>{
+    const newTitle =  editToDoInput.value
+    if(newTitle === '') return alert('Title should can\'t be emply')
+    if(list.some(item => item.title === newTitle && item.title !== toDoforEditing)) return alert('Todo should be uniq')   
+    
+    const updatedList = list.map((toDo) => {
+         return { ...toDo, title: toDo.title === toDoforEditing ? newTitle : toDo.title }
+    }) 
+
+    list = updatedList
+    toDoforEditing =''
+    saveList(updatedList)
+    closeModal()
+    renderPage()
+}
+
+const deleteToDo = (toDo) =>{
+    const updatedList = list.filter((item)=>item.title !== toDo)
+    list = updatedList
+    saveList(updatedList)
     renderPage()
 }
 
@@ -76,7 +100,7 @@ function renderPage() {
 
         editIcon.addEventListener('click', (e) => {
             e.stopPropagation()
-            editToDo(toDo.title)
+            openModal(toDo.title)
         }) 
 
         deleteIcon.addEventListener('click', (e) =>{
@@ -88,35 +112,19 @@ function renderPage() {
 }
 
 const addToDo = () => {
-    const title = addToDoInput.value.trim()
-    if (title === undefined || title === '') return alert("Todo should have a title")
+    const title = addToDoInput.value
+    if (title === '') return alert("Todo should have a title")
     
-    if (editModeIcon){
-        list = list.map((toDo)=>
-        toDo.title === editModeIcon ? {...toDo, title} : toDo)
-        editModeIcon = null
-    } else {
-        if(list.some((listItem)=> listItem.title === title))
-            return alert('To do title should be uniq')
-        list.push({...title, done: false})
-    }
+    if(list.some((item)=> item.title === title)) return alert('To do title should be uniq')
     
+    list.push({title, done: false})
     addToDoInput.value = ''
-    modal.classList.remove('showModal')
-    saveList()
+    saveList(list)
     renderPage()
 }
 
-addToDoBtn.addEventListener('click', addToDo)
-
-openModal.addEventListener('click', () => {
-    addToDoInput.value = ''
-    modal.classList.add('showModal')
-})
-
-closingModal.addEventListener('click', () =>{
-    modal.classList.remove('showModal')
-})
+closingModal.onclick = closeModal
+editToDoBtn.onclick = editToDo
 
 renderPage()
 
