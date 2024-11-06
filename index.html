@@ -7,8 +7,40 @@
     <title>Document</title>
 </head>
 <body>
+
+
+
+    <body>
  
-    <div class="addToDoForm">
+        <div class="openModal"><input type="Create To Do Element" id="openModal" placeholder="To Do" ></div>
+        
+        <div class="modalWrapper" id="modal">
+            
+            <div class="modal">
+                <div class="closing" id="closingModal"><i><img src="/assets/icon-close.png" alt="closing-icon" ></i></div>
+                <p>Add to do</p>
+                <input type="text" id="addToDoInput">
+                
+                <button id="addToDoBtn" onclick="addToDo()">Add todo</button>
+            </div>
+        </div>
+    
+        <div class="content">
+            <h2>Todo list:</h2>
+            <div class="listsWrapper">
+                <div class="listContainer">
+                    <h3>Done:</h3>
+                    <div id="doneToDoList" class="listToDo"></div>
+                </div>
+                <div  class="listContainer">
+                    <h3>In progress:</h3>
+                    <div id="inProgressToDoList" class="listToDo"></div>
+                </div>
+            </div>
+        </div>
+    
+ 
+    <!-- <div class="addToDoForm">
         <p>Add to do</p>
         <input type="text" id="addToDoInput" placeholder="Add ToDo">
         <button id="addToDoBtn" onclick="addToDo()">Add todo</button>
@@ -40,6 +72,6 @@
     </div>
 
 
-    <script src="index.js"></script>    
+    <script src="index.js"></script>     -->
 </body>
 </html>
