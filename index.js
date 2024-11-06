@@ -35,8 +35,8 @@ const openModal = (toDo) =>{
 
 const editToDo = () =>{
     const newTitle = editToDoInput.value
-    if(newTitle === '') return alert('Title shouldn\'t be empty')
-    if(list.some(item => item.title === newTitle && item.title !== toDoforEditing)) return alert('Todo should be uniq')   
+    if(editToDoInput.value === '') return alert('Title shouldn\'t be empty')
+    if(list.some(item => item.title === newTitle)) return alert('Todo should be uniq')   
     
     const updatedList = list.map((toDo) => {
          return { ...toDo, title: toDo.title === toDoforEditing ? newTitle : toDo.title }
@@ -110,14 +110,13 @@ function renderPage() {
 }
 
 const addToDo = () => {
-    const title = addToDoInput.value.trim()
+    const title = addToDoInput.value
     if (title === undefined || title === '') return alert("Todo should have a title")
     
     if(list.some(item => item.title === title))
         return alert('To do title should be uniq')
         
-    list.push({...title, done: false})
-        
+    list.push({title, done: false}) 
     addToDoInput.value = ''
     saveList(list)
     renderPage()
